@@ -1,0 +1,95 @@
+<?php
+if ( ! defined('ABSPATH')) exit;
+/**
+ * Plugin Name:       Scroll Button
+ * Plugin URI:        https://jonochan.com.au/wp-content/plugins/scroll-button/
+ * Description:       A simple button to smooth scroll to the top of the webpage.
+ * Version:           1.0
+ * Requires at least: 5.2
+ * Requires PHP:      7.2
+ * Author:            Jonathan Chan
+ * Author URI:        https://jonochan.com.au/
+ * License:           GPL v2 or later
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+ * Update URI:        https://jonochan.com.au/wp-content/plugins/scroll-button/
+ * Text Domain:       my-basics-plugin
+ * Domain Path:       /languages
+ */
+
+class WpScrollButton {
+    public $plugings_url = "";
+
+    public function __construct()
+    {
+        // Plugin activated
+        if (function_exists('register_activation_hook')) {
+            register_activation_hook(__FILE__, array($this, 'activationHook') );
+        }
+
+        // Plugin deactivated 
+        if (function_exists('register_deactivation_hook')) {
+            register_deactivation_hook( __FILE__, array($this, 'deactivationHook') );
+        }
+
+        //Plugin is deleted 
+        if (function_exists('register_uninstall_hook')) {
+            register_uninstall_hook( __FILE__, $this, 'unistallHook');
+        }
+
+        //header hook
+        add_action('wp_head', array($this, 'filter_header'));
+
+        //footer hook
+        add_action('wp_footer', array($this, 'filter_footer'));
+
+        //init 
+        add_action('init' , array($this, 'init'));
+    }
+
+    //init
+    public function init(){
+        $this->plugins_url = untrailingslashit(plugins_url('', __FILE__));
+    }
+
+    //Activate
+    public function activationHook(){
+        //Input background color of the button
+        if (! get_option('scroll_button_color')){
+            update_option('scroll_button_color', 'black');
+        }
+    }
+
+    //Deactivate 
+    public function deactivationHook(){
+        delete_option('scroll_button_color');
+    }
+
+    //Deleted 
+
+    public function uninstallHook(){
+        delete_option('scroll_button_color');
+    }
+
+    //Inset stylesheet head section
+    public function filter_header(){
+        include(sprintf("%s/css/scroll-button.php", dirname(__FILE__)));
+
+        wp_enqueue_script('jquery');
+        //wp_enqueue_script('to-top-button.php', $this->plugins_url.'js/to-top-button.php', array());
+        include(sprintf("%/js/to-top-button.php", dirname(__FILE__)));
+    }
+
+    // Echo 'scroll button' footer section
+    public function filter_footer(){
+        ?>
+            <div id="To_top_animate" class="button-scroll"><a href="#" >▲</a></div>
+        <?php
+    }
+    
+
+}
+
+$ScrollButton = new WpScrollButton();
+
+
+?>

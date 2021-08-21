@@ -1,0 +1,31 @@
+<style>
+.button-scroll a {
+  display: block;
+  font-size: 16px;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  -webkit-border-radius: 50px;
+  text-align: center;
+  border-radius: 50px;
+  background: <?php echo get_option( 'scroll_button_color' ) ?>;
+  color: #ffffff;
+  -webkit-box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.3);
+  box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.3);
+  z-index: 2147483647;
+  text-decoration: none;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+}
+.button-scroll a:hover,
+.button-scroll a:focus,
+.button-scroll a:active {
+  color: #ffffff;
+  background: grey;
+}
+
+.button-scroll a:visited {
+  color: #ffffff;
+}
+</style>
