@@ -60,21 +60,25 @@ class WpScrollButton
     public function activationHook(){
         //Input background color of the button
         if (! get_option('scroll_button_color')){
-            update_option('scroll_button_color', 'black');
-    
-      
+            update_option('scroll_button_color', 'red');
+        }
+        //Input speed 
+        if (! get_option('scroll_button_speed')){
+            update_option('scroll_button_speed', 'slow');
         }
     }
 
     //Deactivate 
     public function deactivationHook(){
         delete_option('scroll_button_color');
+        delete_option('scroll_button_speed');
     }
 
     //Deleted 
 
     public function uninstallHook(){
         delete_option('scroll_button_color');
+        delete_option('scroll_button_speed');
     }
 
     //Inset stylesheet head section
@@ -112,7 +116,6 @@ class WpScrollButton
 
 }
 
-   
    
            //menu callback markup
        function scroll_button_markup() {

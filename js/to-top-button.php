@@ -10,7 +10,7 @@ jQuery(function($){
         }
     });
     wp_topBtn.on('click', function(){
-      $('html,body').animate({ scrollTop: 0 }, '<?php echo get_option( 'WP_to_top_speed' ) ?>' ,'swing');
+      $('html,body').animate({ scrollTop: 0 }, '<?php echo get_option( 'scroll_button_speed' ) ?>' ,'swing');
       return false;
     });
 });
