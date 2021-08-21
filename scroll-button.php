@@ -16,7 +16,8 @@ if ( ! defined('ABSPATH')) exit;
  * Domain Path:       /languages
  */
 
-class WpScrollButton {
+class WpScrollButton 
+{
     public $plugings_url = "";
 
     public function __construct()
@@ -44,6 +45,10 @@ class WpScrollButton {
 
         //init 
         add_action('init' , array($this, 'init'));
+
+        //register admin menu
+        add_action('admin_menu' , array($this, 'scroll_button_settings'));
+        
     }
 
     //init
@@ -56,6 +61,8 @@ class WpScrollButton {
         //Input background color of the button
         if (! get_option('scroll_button_color')){
             update_option('scroll_button_color', 'black');
+    
+      
         }
     }
 
@@ -79,15 +86,42 @@ class WpScrollButton {
         include(sprintf("%/js/to-top-button.php", dirname(__FILE__)));
     }
 
+    
+
     // Echo 'scroll button' footer section
     public function filter_footer(){
         ?>
             <div id="To_top_animate" class="button-scroll"><a href="#" >▲</a></div>
         <?php
     }
-    
+
+      //add menu
+      public function scroll_button_settings()
+      {
+        add_menu_page(
+            'Scroll Button',
+            'Scroll Menu',
+            'manage_options',
+            'scroll_button',
+            'scroll_button_markup',
+            'dashicons-arrow-up',
+            100
+        );
+    }
+ 
 
 }
+
+   
+   
+           //menu callback markup
+       function scroll_button_markup() {
+           include(sprintf("%s/admin/admin.php", dirname(__FILE__)));
+       }
+
+
+
+ 
 
 $ScrollButton = new WpScrollButton();
 
