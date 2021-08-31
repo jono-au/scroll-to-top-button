@@ -9,6 +9,7 @@ if ( !defined('ABSPATH')) exit;
         <div class="wrap">
             <h1><?php esc_html_e( get_admin_page_title()); ?></h1>
 
+
 <?php
                 /* Save button clicked */  
                 $Totop_save = @$_POST['Totop_save'];
@@ -25,7 +26,9 @@ if ( !defined('ABSPATH')) exit;
                             //register to database
                             update_option('scroll_button_speed', $WP_to_top_speed);
                         
-                        $WP_to_top_color = ( @$_POST['WP_to_top_color'] == 'blue')? 'blue' : 'red';
+                        //$WP_to_top_color = ( @$_POST['WP_to_top_color'] == 'blue')? 'blue' : 'red';
+                        $WP_to_top_color = ( @$_POST['WP_to_top_color']);
+
                             //register to database
                             update_option('scroll_button_color', $WP_to_top_color);
                     }
@@ -62,19 +65,12 @@ if ( !defined('ABSPATH')) exit;
             <tr valign="top">
                 <th width="50" scope="row">Button Colour</th>
                 <td>
-                    <input type="radio" name="WP_to_top_color" value="blue" <?php if($WP_to_top_color == "blue") echo('checked'); ?> />
-                    Blue<br/>
-                    <input type="radio" name="WP_to_top_color" value="red" <?php if($WP_to_top_color == "red") echo('checked'); ?> /> 
-                    Red<br/>         
+                     <input type="text" name="WP_to_top_color" value="<?php echo get_option( 'scroll_button_color' ) ?>" class="my-color-field" data-default-color="#effeff" />
                 </td>
             </tr>
-            <tr>
-                <th width="50" scope="row">Save this setting</th>
-                <td>
-                    <input type="submit" name="Totop_save" value="Save" /><br/>
-                </td>
-            </tr>
-
+        
         </table>
-     
+        
+        <input type="submit" name="Totop_save" value="Save Settings" class="button button-primary"/><br/>
+
         </div>

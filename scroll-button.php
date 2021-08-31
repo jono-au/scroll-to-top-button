@@ -48,6 +48,17 @@ class WpScrollButton
 
         //register admin menu
         add_action('admin_menu' , array($this, 'scroll_button_settings'));
+
+
+        //color picker
+        add_action( 'admin_enqueue_scripts', 'mw_enqueue_color_picker' );
+
+        function mw_enqueue_color_picker( $hook_suffix ) {
+                // first check that $hook_suffix is appropriate for your admin page
+                wp_enqueue_style( 'wp-color-picker' );
+                wp_enqueue_script( 'my-script-handle', plugins_url('/js/my-script.js', __FILE__ ), array( 'wp-color-picker' ), false, true );
+            }
+
         
     }
 
@@ -70,8 +81,8 @@ class WpScrollButton
 
     //Deactivate 
     public function deactivationHook(){
-        delete_option('scroll_button_color');
-        delete_option('scroll_button_speed');
+        // delete_option('scroll_button_color');
+        // delete_option('scroll_button_speed');
     }
 
     //Deleted 
@@ -107,20 +118,22 @@ class WpScrollButton
             'Scroll Menu',
             'manage_options',
             'scroll_button',
-            'scroll_button_markup',
+            array( __CLASS__, 'scroll_button_markup' ),
             'dashicons-arrow-up',
             100
         );
     }
- 
+
+
+      //menu callback markup
+    public static function scroll_button_markup() {
+        include(sprintf("%s/admin/admin.php", dirname(__FILE__)));
+    }
 
 }
 
    
-           //menu callback markup
-       function scroll_button_markup() {
-           include(sprintf("%s/admin/admin.php", dirname(__FILE__)));
-       }
+      
 
 
 
