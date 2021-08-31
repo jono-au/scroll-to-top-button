@@ -51,15 +51,17 @@ class WpScrollButton
 
 
         //color picker
-        add_action( 'admin_enqueue_scripts', 'mw_enqueue_color_picker' );
-
-        function mw_enqueue_color_picker( $hook_suffix ) {
-                // first check that $hook_suffix is appropriate for your admin page
-                wp_enqueue_style( 'wp-color-picker' );
-                wp_enqueue_script( 'my-script-handle', plugins_url('/js/my-script.js', __FILE__ ), array( 'wp-color-picker' ), false, true );
-            }
+        add_action( 'admin_enqueue_scripts', array($this,'mw_enqueue_color_picker' ));
 
         
+
+        
+    }
+
+
+    public function mw_enqueue_color_picker(  ) {
+        wp_enqueue_style( 'wp-color-picker' );
+        wp_enqueue_script( 'my-script-handle', plugins_url('/js/my-script.js', __FILE__ ), array( 'wp-color-picker' ), false, true );
     }
 
     //init
@@ -101,7 +103,6 @@ class WpScrollButton
         include(sprintf("%/js/to-top-button.php", dirname(__FILE__)));
     }
 
-    
 
     // Echo 'scroll button' footer section
     public function filter_footer(){
@@ -124,7 +125,6 @@ class WpScrollButton
         );
     }
 
-
       //menu callback markup
     public static function scroll_button_markup() {
         include(sprintf("%s/admin/admin.php", dirname(__FILE__)));
@@ -132,14 +132,6 @@ class WpScrollButton
 
 }
 
-   
-      
-
-
-
- 
-
 $ScrollButton = new WpScrollButton();
-
 
 ?>

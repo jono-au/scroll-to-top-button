@@ -18,14 +18,21 @@
   bottom: 20px;
   right: 30px;
 }
-.button-scroll a:hover,
-.button-scroll a:focus,
-.button-scroll a:active {
-  color: #ffffff;
-  background: grey;
-}
 
 .button-scroll a:visited {
   color: #ffffff;
 }
+
+.slider-color {
+    -webkit-appearance: none;
+    height: 15px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: opacity .15s ease-in-out;
+    transition: opacity .15s ease-in-out;
+    direction:rtl;
+}
+
 </style>
