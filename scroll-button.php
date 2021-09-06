@@ -117,7 +117,7 @@ class WpScrollButton
       {
         add_menu_page(
             'Scroll Button',
-            'Scroll Menu',
+            'Scroll Button',
             'manage_options',
             'scroll_button',
             array( __CLASS__, 'scroll_button_markup' ),
