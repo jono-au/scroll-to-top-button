@@ -53,10 +53,11 @@ class WpScrollButton
         //color picker
         add_action( 'admin_enqueue_scripts', array($this,'mw_enqueue_color_picker' ));
 
-        
-
-        
+        //settings link
+        add_filter('plugin_action_links_'.plugin_basename(__FILE__), array($this,'scroll_button_settings_link'));
+     
     }
+
 
 
     public function mw_enqueue_color_picker(  ) {
@@ -130,7 +131,23 @@ class WpScrollButton
         include(sprintf("%s/admin/admin.php", dirname(__FILE__)));
     }
 
+    //add settings link
+    public function scroll_button_settings_link( $links ) {
+        $links[] = '<a href="' .
+            admin_url( 'admin.php?page=scroll_button' ) .
+            '">' . __('Settings') . '</a>';
+        return $links;
+    }
+
+
+  
+  
+   
+
+
+
 }
+
 
 $ScrollButton = new WpScrollButton();
 
